@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b5f930229a4825b52044504b6908c2, type: 3}
+  m_Name: ObstacleTile
+  m_EditorClassIdentifier: 
+  tileSprites:
+  - {fileID: 8827842392236584859, guid: ace18abea820941d29bd424445816135, type: 3}
+  - {fileID: 4941240919024178222, guid: 3e4b641dad82e47adbf084d794ca2eef, type: 3}
