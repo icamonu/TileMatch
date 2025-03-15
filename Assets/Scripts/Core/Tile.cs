@@ -9,6 +9,5 @@ namespace Core
         [SerializeField] protected TileSpriteSelector tileSpriteSelector;
         
         protected TileSO tileSO;
-        public ISelectable Cell { get; set; }
     }
 }

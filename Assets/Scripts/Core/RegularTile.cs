@@ -12,6 +12,7 @@ namespace Core
         [SerializeField] private float fallDuration = 0.5f;
         [SerializeField] private float collapseDuration = 0.5f;
         public int TileType { get; private set; }
+        public ISelectable Selectable { get; set; }
         
         public void SetTileSO(TileSO tileSO, int tileType)
         {

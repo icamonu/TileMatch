@@ -7,7 +7,7 @@ namespace Core
         [SerializeField] private Tile tile;
         private void OnMouseDown()
         {
-            tile.Cell.TileSelected();
+            ((RegularTile)tile).Selectable.TileSelected();
         }
     }
 }

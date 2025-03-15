@@ -23,27 +23,6 @@ namespace Core
             visitedTiles = new HashSet<Cell>(boardData.Board.Length);
             queue = new Queue<Cell>(boardData.Board.Length);
             determinedMatches = new HashSet<Cell>(boardData.Board.Length);
-            foreach (Cell cell in boardData.Board)
-            {
-                cell.OnTileSelected += OnTileSelected;
-            }
-        }
-
-        ~MatchChecker()
-        {
-            foreach (Cell cell in boardData.Board)
-            {
-                cell.OnTileSelected -= OnTileSelected;
-            }
-        }
-
-        private void OnTileSelected(Cell cell)
-        {
-            HashSet<Cell> blastMatches = GetMatches(cell);
-            if (blastMatches.Count<2)
-                return;
-            
-            boardData.BlastTiles(blastMatches);
         }
 
         public HashSet<Cell> GetMatches(Cell startCell)
@@ -54,9 +33,11 @@ namespace Core
             
             queue.Enqueue(startCell);
 
+            Cell currentCell;
+
             while (queue.Count > 0)
             {
-                Cell currentCell = queue.Dequeue();
+                currentCell = queue.Dequeue();
                 matches.Add(currentCell);
                 visitedTiles.Add(currentCell);
                 

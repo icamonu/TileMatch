@@ -7,7 +7,7 @@ namespace Core
     {
         public void Fall(Vector3 targetPosition, float duration)
         {
-            transform.DOJump(targetPosition,1 ,1 ,duration);
+            transform.DOMove(targetPosition, duration);
         }
         
         public void BlastMovement(Vector3 targetPosition, float duration)

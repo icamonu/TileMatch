@@ -32,6 +32,14 @@ namespace Core.Data
             
             OnBoardCreated?.Invoke();
         }
+
+        public void BlastTiles(HashSet<Cell> blastTiles)
+        {
+            foreach (Cell cell in blastTiles)
+            {
+                cell.BlastTile();
+            }
+        }
         
         private void FindNeighbours()
         {
@@ -59,14 +67,6 @@ namespace Core.Data
                 }
 
                 Board[i].SetNeighbours(neighbours);
-            }
-        }
-
-        public void BlastTiles(HashSet<Cell> blastTiles)
-        {
-            foreach (Cell cell in blastTiles)
-            {
-                cell.BlastTile();
             }
         }
     }

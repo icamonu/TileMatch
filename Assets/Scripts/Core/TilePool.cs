@@ -26,8 +26,16 @@ namespace Core
                 int randomTileType = Random.Range(0, gameSettings.regularTiles.Count);
                 tile.SetTileSO(gameSettings.regularTiles[randomTileType], randomTileType);
                 boardData.Board[i].SetTile(tile);
-                boardData.Board[i].Tile.Cell = boardData.Board[i];
+                ((RegularTile)boardData.Board[i].Tile).Selectable = boardData.Board[i];
             }
+        }
+
+        public Tile GetRandomTile()
+        {
+            int randomTileType = Random.Range(0, gameSettings.regularTiles.Count);
+            RegularTile tile = Object.Instantiate(tilePrefab).GetComponent<RegularTile>();
+            tile.SetTileSO(gameSettings.regularTiles[randomTileType], randomTileType);
+            return tile;
         }
     }
 }

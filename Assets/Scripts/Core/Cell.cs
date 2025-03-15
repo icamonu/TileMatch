@@ -11,16 +11,22 @@ namespace Core
         public Tile Tile { get; private set; }
         public List<Cell> Neighbours { get; private set; }=new List<Cell>(4);
         
-        public event Action<Cell> OnTileSelected;
-        
+        public event Action<Cell> OnTileSelected; 
         public Cell(Vector2Int gridPosition)
         {
             GridPosition = gridPosition;
         }
-
+        
         public void SetTile(Tile tile)
         {
             Tile = tile;
+
+            if (Tile != null)
+            {
+                Vector3 cellPosition = new Vector3(GridPosition.x, GridPosition.y, 0);
+                ((RegularTile)tile).Move(cellPosition);
+            }
+                
         }
         
         public void BlastTile()

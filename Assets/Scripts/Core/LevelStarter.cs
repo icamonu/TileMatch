@@ -12,6 +12,7 @@ namespace Core
         
         private void Awake()
         {
+            Application.targetFrameRate = 120;
             Init();
         }
         
@@ -25,6 +26,9 @@ namespace Core
             
             MatchChecker matchChecker = new MatchChecker(boardData);
             matchChecker.CheckTheBoard();
+            
+            ColumnSorter columnSorter = new ColumnSorter(boardData);
+            ProcessController processController = new ProcessController(boardData, matchChecker, columnSorter, tilePool);
         }
     }
 }
