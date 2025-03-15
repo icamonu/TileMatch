@@ -35,14 +35,6 @@ namespace Core
         
         public void OnTileSelected(Cell cell)
         {
-            Debug.Log("Cell position: " + cell.GridPosition);
-            Debug.Log("Cell tile type: " + ((RegularTile)cell.Tile).TileType);
-
-            for (int i = 0; i < cell.Neighbours.Count; i++)
-            {
-                Debug.Log("Neighbour position: " + cell.Neighbours[i].GridPosition);
-            }
-            
             HashSet<Cell> blastMatches = matchChecker.GetMatches(cell);
             if (blastMatches.Count<2)
                 return;
