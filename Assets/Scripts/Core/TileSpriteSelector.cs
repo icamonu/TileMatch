@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ScriptableObjects;
 using UnityEngine;
@@ -8,8 +9,19 @@ namespace Core
     {
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private TileSO tileSO;
-        [SerializeField] private List<int> conditions;
-        
+        [SerializeField] private GameSettings gameSettings;
+        private List<int> conditions;
+
+        private void OnEnable()
+        {
+            conditions = new List<int>
+            {
+                gameSettings.matchConditionA,
+                gameSettings.matchConditionB,
+                gameSettings.matchConditionC
+            };
+        }
+
         public void Init(TileSO tileSO)
         {
             this.tileSO = tileSO;

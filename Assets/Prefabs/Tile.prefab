@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 178149770988501662}
   tileSO: {fileID: 11400000, guid: 8e949dcf8512644f0b8bb1c8bc44aed0, type: 2}
-  conditions: 030000000500000007000000
+  gameSettings: {fileID: 11400000, guid: b240c2cc499c34b99aa7fe4cb81d8ff1, type: 2}
 --- !u!114 &-381922786088748127
 MonoBehaviour:
   m_ObjectHideFlags: 0

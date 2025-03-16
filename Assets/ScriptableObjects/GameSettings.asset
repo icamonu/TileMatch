@@ -19,6 +19,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 85080ec235c2e41b9a51896c2deaf6a3, type: 2}
   - {fileID: 11400000, guid: 9ee98f69efca4481aaae418806ca2842, type: 2}
   obstacleTiles: []
-  matchConditionA: 3
-  matchConditionB: 6
-  matchConditionC: 8
+  matchConditionA: 4
+  matchConditionB: 7
+  matchConditionC: 9
