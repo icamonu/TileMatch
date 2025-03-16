@@ -31,6 +31,9 @@ namespace Core
             visitedTiles.Clear();
             queue.Clear();
             
+            if(startCell.Tile is not IMatchable)
+                return matches;
+            
             queue.Enqueue(startCell);
 
             Cell currentCell;

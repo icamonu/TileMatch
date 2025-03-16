@@ -41,11 +41,37 @@ namespace Core.Data
             }
         }
         
+        public HashSet<Cell> GetDamagedBlastTiles(HashSet<Cell> blastMatches)
+        {
+            HashSet<Cell> damagedBlastTiles = new HashSet<Cell>();
+            foreach (var blastMatch in blastMatches)
+            {
+                List<Cell> neighbours = blastMatch.Neighbours;
+                foreach (var neighbour in neighbours)
+                {
+                    if (neighbour.Tile is not ObstacleTile tile)
+                        continue;
+
+                    tile.GetDamage();
+                    
+                    if (tile.Health == 0)
+                    {
+                        damagedBlastTiles.Add(neighbour);
+                    }
+                }
+            }
+            
+            return damagedBlastTiles;
+        }
+        
         private void FindNeighbours()
         {
             for (int i = 0; i < Board.Length; i++)
             {
                 List<Cell> neighbours = new List<Cell>(4);
+                Cell topCell=null;
+                Cell bottomCell=null;
+                
                 if (i % Columns != 0)
                 {
                     neighbours.Add(Board[i - 1]);
@@ -59,14 +85,16 @@ namespace Core.Data
                 if (i / Columns != 0)
                 {
                     neighbours.Add(Board[i - Columns]);
+                    bottomCell = Board[i - Columns];
                 }
 
                 if (i / Columns != Rows - 1)
                 {
                     neighbours.Add(Board[i + Columns]);
+                    topCell = Board[i + Columns];
                 }
 
-                Board[i].SetNeighbours(neighbours);
+                Board[i].SetNeighbours(neighbours, topCell, bottomCell);
             }
         }
     }

@@ -46,6 +46,10 @@ namespace Core
                 return;
             
             boardData.BlastTiles(blastMatches);
+            
+            HashSet<Cell> damagedBlastTiles = boardData.GetDamagedBlastTiles(blastMatches);
+            boardData.BlastTiles(damagedBlastTiles);
+            
             columnSorter.SortColumns();
             
             List<Cell> emptyCells = columnSorter.GetEmptyCells();

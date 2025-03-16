@@ -10,6 +10,8 @@ namespace Core
         public Vector2Int GridPosition { get; private set; }
         public Tile Tile { get; private set; }
         public List<Cell> Neighbours { get; private set; }=new List<Cell>(4);
+        public Cell TopCell { get; private set; }
+        public Cell BottomCell { get; private set; }
         
         public event Action<Cell> OnTileSelected; 
         public Cell(Vector2Int gridPosition)
@@ -24,14 +26,17 @@ namespace Core
         
         public void BlastTile()
         {
-            if(Tile is IBlastable blastableTile)
+            if (Tile is IBlastable blastableTile)
+            {
                 blastableTile.Blast();
-            
+            }
             Tile = null;
         }
         
-        public void SetNeighbours(List<Cell> neighbours)
+        public void SetNeighbours(List<Cell> neighbours, Cell topCell, Cell bottomCell)
         {
+            TopCell = topCell;
+            BottomCell = bottomCell;
             Neighbours = neighbours;
         }
 

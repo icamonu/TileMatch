@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using ScriptableObjects;
 using UnityEngine;
@@ -11,6 +10,11 @@ namespace Core
         [SerializeField] private TileSO tileSO;
         [SerializeField] private GameSettings gameSettings;
         private List<int> conditions;
+        
+        public void SetConditions(List<int> conditions)
+        {
+            this.conditions = conditions;
+        }
 
         private void OnEnable()
         {

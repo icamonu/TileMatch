@@ -17,7 +17,7 @@ namespace Core
             for (int i = 0; i < emptyCells.Count; i++)
             {
                 Tile randomTile = tilePool.GetRandomTile();
-                ((RegularTile)randomTile).Selectable = emptyCells[i];
+                ((RegularTile)randomTile).SetSelectable(emptyCells[i]);
                 randomTile.transform.position = new Vector3(emptyCells[i].GridPosition.x, 20f, 0f);
                 emptyCells[i].SetTile(randomTile);
             }

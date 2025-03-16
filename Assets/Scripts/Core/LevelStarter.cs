@@ -1,4 +1,3 @@
-using System;
 using Core.Data;
 using ScriptableObjects;
 using UnityEngine;
@@ -10,6 +9,7 @@ namespace Core
         [SerializeField] private GameSettings gameSettings;
         [SerializeField] private MovementSettings movementSettings;
         [SerializeField] private GameObject tilePrefab;
+        [SerializeField] private GameObject obtacleTilePrefab;
         
         private void Awake()
         {
@@ -22,7 +22,8 @@ namespace Core
             BoardData boardData = new BoardData(gameSettings.rows, gameSettings.columns);
             boardData.SetBoard();
             
-            TilePool tilePool = new TilePool(boardData, tilePrefab, gameSettings);
+            TilePool tilePool = new TilePool(boardData, tilePrefab, obtacleTilePrefab,
+                gameSettings);
             tilePool.PopulateTheBoard();
             
             MatchChecker matchChecker = new MatchChecker(boardData);

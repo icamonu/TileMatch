@@ -10,13 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1646471238198142596}
   - component: {fileID: 178149770988501662}
-  - component: {fileID: 1443488175110653852}
-  - component: {fileID: 8219028979747042125}
   - component: {fileID: 3011332456416032384}
-  - component: {fileID: -381922786088748127}
-  - component: {fileID: -194735018017818043}
+  - component: {fileID: 6890958172982698919}
   m_Layer: 6
-  m_Name: Tile
+  m_Name: ObstacleTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -4624011131410558117, guid: da92640ff1d154da5a15d76509ab2254, type: 3}
+  m_Sprite: {fileID: 4941240919024178222, guid: 3e4b641dad82e47adbf084d794ca2eef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -92,65 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1443488175110653852
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1929710332382770400}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.10072324}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.1377778}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 0.93633133}
-  m_EdgeRadius: 0
---- !u!114 &8219028979747042125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1929710332382770400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea2637f61ee74c5d823e6257bbe9a5d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tile: {fileID: -381922786088748127}
 --- !u!114 &3011332456416032384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,9 +102,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 178149770988501662}
-  tileSO: {fileID: 11400000, guid: 8e949dcf8512644f0b8bb1c8bc44aed0, type: 2}
+  tileSO: {fileID: 11400000, guid: 552f2e192e66443a9b95226fd1b58020, type: 2}
   gameSettings: {fileID: 11400000, guid: b240c2cc499c34b99aa7fe4cb81d8ff1, type: 2}
---- !u!114 &-381922786088748127
+--- !u!114 &6890958172982698919
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,21 +113,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929710332382770400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0e663c8dfe84815bdca0db4fc71804b, type: 3}
+  m_Script: {fileID: 11500000, guid: 47e2c12a69fd42519242ad1696861bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tileSpriteSelector: {fileID: 3011332456416032384}
-  tileMovement: {fileID: -194735018017818043}
-  movementSettings: {fileID: 11400000, guid: 3a8cc630c8e41442eb54a6995539205a, type: 2}
---- !u!114 &-194735018017818043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1929710332382770400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14c29956cae44457a3ddddbbbffe4283, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  health: 2

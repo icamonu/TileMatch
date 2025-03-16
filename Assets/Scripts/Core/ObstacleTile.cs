@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core
 {
     public class ObstacleTile: Tile, IBlastable, IDamageable
     {
-        [SerializeField] private int health = 2;
+        public int Health { get; private set; } = 2;
         
         public void Blast()
         {
@@ -13,10 +14,13 @@ namespace Core
 
         public void GetDamage()
         {
-            health--;
-            tileSpriteSelector.SetSprite(health);
-            if (health<=0)
-                Blast();
+            Health--;
+            tileSpriteSelector.SetSprite(Health);
+        }
+
+        protected override void SetSpriteConditions()
+        {
+            tileSpriteSelector.SetConditions(new List<int>(1));
         }
     }
 }

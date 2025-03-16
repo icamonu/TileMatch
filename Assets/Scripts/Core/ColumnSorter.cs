@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Data;
+using Core.Interfaces;
 
 namespace Core
 {
@@ -31,39 +32,69 @@ namespace Core
             emptyCells.Clear();
             modifiedCells.Clear();
             
-            for (int x = 0; x < boardData.Columns; x++)
+            for (int i = 0; i < boardData.Columns; i++)
             {
-                List<Tile> columnTiles = new List<Tile>(boardData.Columns);
-                
-                for (int i = 0; i < boardData.Rows; i++)
-                {
-                    int y=x+i*boardData.Columns;
-                    
-                    if(boardData.Board[y].Tile==null)
-                        continue;
-                    
-                    columnTiles.Add(boardData.Board[y].Tile);
-                }
-                
-                for (int i = 0; i < boardData.Rows; i++)
-                {
-                    int y=x+i*boardData.Columns;
+                Sort(boardData.Board[i]);
+            }
+            
+            for(int i=boardData.Board.Length-1; i>=boardData.Board.Length-boardData.Columns; i--)
+            {
+                FindFillableCells(boardData.Board[i]);
+            }
+        }
+        
+        private void Sort(Cell cell)
+        {
+            Cell currentCell = cell;
 
-                    if (i >= columnTiles.Count)
+            while (currentCell.TopCell!=null)
+            {
+                if (currentCell.Tile is ObstacleTile)
+                {
+                    currentCell = currentCell.TopCell;
+                    continue;
+                }
+
+                if (currentCell.Tile==null)
+                {
+                    Cell nextCell = currentCell.TopCell;
+
+                    while (nextCell.Tile==null && nextCell.TopCell!=null)
                     {
-                        boardData.Board[y].SetTile(null);
-                        emptyCells.Add(boardData.Board[y]);
-                        modifiedCells.Add(boardData.Board[y]);
+                        nextCell = nextCell.TopCell;
+                        continue;
                     }
-                    else
+
+                    if (nextCell.Tile is IMovable)
                     {
-                        if(boardData.Board[y / boardData.Columns].Tile!=columnTiles[i])
-                            modifiedCells.Add(boardData.Board[y]);
-                        
-                        boardData.Board[y].SetTile(columnTiles[i]);
-                        ((RegularTile)(boardData.Board[y].Tile)).Selectable = boardData.Board[y];
+                        currentCell.SetTile(nextCell.Tile);
+                        ((RegularTile)(currentCell.Tile)).SetSelectable(currentCell);
+                        modifiedCells.Add(currentCell);
+                        nextCell.SetTile(null);
+                        currentCell = currentCell.TopCell;
+                        continue;
+                    }
+
+                    if (nextCell.Tile is not IMovable)
+                    {
+                        currentCell = nextCell;
+                        continue;
                     }
                 }
+                
+                currentCell = currentCell.TopCell;
+            }
+        }
+
+        private void FindFillableCells(Cell cell)
+        {
+            Cell currentCell = cell;
+
+            while (currentCell.Tile==null)
+            {
+                emptyCells.Add(currentCell);
+                modifiedCells.Add(currentCell);
+                currentCell = currentCell.BottomCell;
             }
         }
     }
