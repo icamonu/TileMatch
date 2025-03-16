@@ -16,16 +16,6 @@ namespace Core
             this.conditions = conditions;
         }
 
-        private void OnEnable()
-        {
-            conditions = new List<int>
-            {
-                gameSettings.matchConditionA,
-                gameSettings.matchConditionB,
-                gameSettings.matchConditionC
-            };
-        }
-
         public void Init(TileSO tileSO)
         {
             this.tileSO = tileSO;

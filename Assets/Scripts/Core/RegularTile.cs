@@ -7,7 +7,6 @@ namespace Core
 {
     public class RegularTile: Tile, IMatchable, IMovable, IBlastable
     {
-
         [SerializeField] private TileMovement tileMovement;
         [SerializeField] private MovementSettings movementSettings;
         [SerializeField] private GameSettings gameSettings;
