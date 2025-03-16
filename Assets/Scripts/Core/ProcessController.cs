@@ -1,16 +1,20 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Data;
 using UnityEngine;
 
 namespace Core
 {
+
+
     public class ProcessController
     {
         private BoardData boardData;
         private MatchChecker matchChecker;
         private ColumnSorter columnSorter;
         private TilePool tilePool;
-        
+        private readonly BoardRefiller boardRefiller;
+
         public ProcessController(BoardData boardData, MatchChecker matchChecker, 
             ColumnSorter columnSorter, TilePool tilePool)
         {
@@ -23,6 +27,8 @@ namespace Core
             {
                 cell.OnTileSelected += OnTileSelected;
             }
+
+            boardRefiller = new BoardRefiller(tilePool);
         }
         
         ~ProcessController()
@@ -41,13 +47,7 @@ namespace Core
             
             boardData.BlastTiles(blastMatches);
             List<Cell> emptyCells = columnSorter.SortColumns();
-            for (int i = 0; i < emptyCells.Count; i++)
-            {
-                Tile randomTile = tilePool.GetRandomTile();
-                ((RegularTile)randomTile).Selectable = emptyCells[i];
-                randomTile.transform.position = new Vector3(emptyCells[i].GridPosition.x, 20f, 0f);
-                emptyCells[i].SetTile(randomTile);
-            }
+            boardRefiller.Refill(emptyCells);
             matchChecker.CheckTheBoard();
         }
     }
