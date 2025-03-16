@@ -90,8 +90,11 @@ namespace Core
         {
             Cell currentCell = cell;
 
-            while (currentCell.Tile==null)
+            while (currentCell!=null)
             {
+                if(currentCell.Tile!=null)
+                    break;
+                
                 emptyCells.Add(currentCell);
                 modifiedCells.Add(currentCell);
                 currentCell = currentCell.BottomCell;

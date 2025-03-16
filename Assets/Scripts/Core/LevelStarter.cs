@@ -1,3 +1,4 @@
+using System;
 using Core.Data;
 using ScriptableObjects;
 using UnityEngine;
@@ -16,10 +17,11 @@ namespace Core
             Application.targetFrameRate = 120;
             Init();
         }
-        
+
+        private BoardData boardData;
         private void Init()
         {
-            BoardData boardData = new BoardData(gameSettings.rows, gameSettings.columns);
+            boardData = new BoardData(gameSettings.rows, gameSettings.columns);
             boardData.SetBoard();
             
             TilePool tilePool = new TilePool(boardData, tilePrefab, obtacleTilePrefab,
@@ -32,6 +34,13 @@ namespace Core
             ColumnSorter columnSorter = new ColumnSorter(boardData);
             ProcessController processController = new ProcessController(boardData, matchChecker, 
                 columnSorter, tilePool, movementSettings);
+            
+        }
+
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+                new BoardShuffler(boardData).Shuffle();
         }
     }
 }

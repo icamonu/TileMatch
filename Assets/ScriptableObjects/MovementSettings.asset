@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MovementSettings
   m_EditorClassIdentifier: 
   fallDuration: 0.5
-  collapseDuration: 0.5
+  collapseDuration: 0.1

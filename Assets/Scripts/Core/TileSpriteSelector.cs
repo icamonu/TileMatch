@@ -34,5 +34,10 @@ namespace Core
             
             spriteRenderer.sprite = tileSO.tileSprites[0];
         }
+        
+        public void SetSortingOrder(int order)
+        {
+            spriteRenderer.sortingOrder = order;
+        }
     }
 }

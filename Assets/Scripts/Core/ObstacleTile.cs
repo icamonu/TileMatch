@@ -21,6 +21,7 @@ namespace Core
         protected override void SetSpriteConditions()
         {
             tileSpriteSelector.SetConditions(new List<int>(1));
+            tileSpriteSelector.SetSortingOrder((int)transform.position.y);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Interfaces;
 using ScriptableObjects;
 using UnityEngine;
@@ -34,12 +35,20 @@ namespace Core
         public void Move(Vector3 targetPosition)
         {
             tileMovement.Fall(targetPosition, movementSettings.fallDuration);
+            tileSpriteSelector.SetSortingOrder((int)targetPosition.y);
+        }
+        
+        public void Move(Vector2Int targetPosition)
+        {
+            Vector3 targetPos = new Vector3(targetPosition.x, targetPosition.y,0f);
+            tileMovement.Fall(targetPos, movementSettings.fallDuration);
+            tileSpriteSelector.SetSortingOrder(targetPosition.y);
         }
 
-        public void Blast()
+        public async void Blast()
         {
-            // tileMovement.BlastMovement(transform.position + Vector3.up, movementSettings.collapseDuration);
-            // await Task.Delay((int)(collapseDuration * 1000));
+            tileMovement.BlastMovement(movementSettings.collapseDuration);
+            await Task.Delay((int)(movementSettings.collapseDuration * 1000));
             Destroy(gameObject);
         }
 

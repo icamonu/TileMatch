@@ -12,6 +12,7 @@ namespace Core
         protected void OnEnable()
         {
             SetSpriteConditions();
+            tileSpriteSelector.SetSortingOrder((int)transform.position.y);
         }
     }
 }

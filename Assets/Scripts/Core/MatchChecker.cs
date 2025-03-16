@@ -10,6 +10,7 @@ namespace Core
         private HashSet<Cell> matches;
         private HashSet<Cell> visitedTiles;
         private HashSet<Cell> determinedMatches;
+        public bool Deadlock { get; private set; }=false;
         
         public MatchChecker(BoardData boardData)
         {
@@ -67,9 +68,10 @@ namespace Core
             return matches;
         }
         
-        public void CheckTheBoard()
+        public bool CheckTheBoard()
         {
             determinedMatches.Clear();
+            int matchCounter = 0;
             
             for(int i=0; i<boardData.Board.Length; i++)
             {
@@ -80,6 +82,9 @@ namespace Core
                     continue;
                 
                 HashSet<Cell> currentMatches = GetMatches(boardData.Board[i]);
+
+                if(currentMatches.Count>1)
+                    matchCounter++;
                 
                 foreach (Cell cell in currentMatches)
                 {
@@ -87,6 +92,10 @@ namespace Core
                 }
                 determinedMatches.UnionWith(currentMatches);
             }
+
+            Deadlock = matchCounter == 0;
+
+            return Deadlock;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Core
         private TilePool tilePool;
         private BoardRefiller boardRefiller;
         private float fallDuration;
+        private BoardShuffler boardShuffler;
 
         public ProcessController(BoardData boardData, MatchChecker matchChecker, 
             ColumnSorter columnSorter, TilePool tilePool, MovementSettings movementSettings)
@@ -29,6 +30,7 @@ namespace Core
             }
 
             boardRefiller = new BoardRefiller(tilePool);
+            boardShuffler= new BoardShuffler(boardData);
         }
         
         ~ProcessController()
@@ -63,8 +65,15 @@ namespace Core
                 ((RegularTile)modifiedCell.Tile).Move(cellPosition);
             }
             
-            await Task.Delay((int)(fallDuration * 1000));
-            matchChecker.CheckTheBoard();
+            await Task.Delay((int)(fallDuration * 800));
+            bool isDeadLock = matchChecker.CheckTheBoard();
+
+            if (isDeadLock)
+            {
+                Debug.Log("Deadlock");
+                boardShuffler.Shuffle();
+            }
+                
         }
     }
 }
