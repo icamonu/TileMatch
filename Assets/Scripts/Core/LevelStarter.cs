@@ -8,6 +8,7 @@ namespace Core
     public class LevelStarter : MonoBehaviour
     {
         [SerializeField] private GameSettings gameSettings;
+        [SerializeField] private MovementSettings movementSettings;
         [SerializeField] private GameObject tilePrefab;
         
         private void Awake()
@@ -28,7 +29,8 @@ namespace Core
             matchChecker.CheckTheBoard();
             
             ColumnSorter columnSorter = new ColumnSorter(boardData);
-            ProcessController processController = new ProcessController(boardData, matchChecker, columnSorter, tilePool);
+            ProcessController processController = new ProcessController(boardData, matchChecker, 
+                columnSorter, tilePool, movementSettings);
         }
     }
 }

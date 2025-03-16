@@ -20,13 +20,6 @@ namespace Core
         public void SetTile(Tile tile)
         {
             Tile = tile;
-
-            if (Tile != null)
-            {
-                Vector3 cellPosition = new Vector3(GridPosition.x, GridPosition.y, 0);
-                ((RegularTile)tile).Move(cellPosition);
-            }
-                
         }
         
         public void BlastTile()

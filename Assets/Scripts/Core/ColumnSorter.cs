@@ -6,15 +6,30 @@ namespace Core
     public class ColumnSorter
     {
         private BoardData boardData;
+        private List<Cell> emptyCells;
+        private List<Cell> modifiedCells;
         
         public ColumnSorter(BoardData boardData)
         {
             this.boardData = boardData;
+            emptyCells = new List<Cell>(boardData.Board.Length);
+            modifiedCells = new List<Cell>(boardData.Board.Length);
+        }
+        
+        public List<Cell> GetModifiedCells()
+        {
+            return modifiedCells;
+        }
+        
+        public List<Cell> GetEmptyCells()
+        {
+            return emptyCells;
         }
 
-        public List<Cell> SortColumns()
+        public void SortColumns()
         {
-            List<Cell> emptyCells = new List<Cell>(boardData.Board.Length);
+            emptyCells.Clear();
+            modifiedCells.Clear();
             
             for (int x = 0; x < boardData.Columns; x++)
             {
@@ -38,16 +53,18 @@ namespace Core
                     {
                         boardData.Board[y].SetTile(null);
                         emptyCells.Add(boardData.Board[y]);
+                        modifiedCells.Add(boardData.Board[y]);
                     }
                     else
                     {
+                        if(boardData.Board[y / boardData.Columns].Tile!=columnTiles[i])
+                            modifiedCells.Add(boardData.Board[y]);
+                        
                         boardData.Board[y].SetTile(columnTiles[i]);
                         ((RegularTile)(boardData.Board[y].Tile)).Selectable = boardData.Board[y];
                     }
                 }
             }
-
-            return emptyCells;
         }
     }
 }

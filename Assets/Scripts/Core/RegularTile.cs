@@ -9,8 +9,7 @@ namespace Core
     {
 
         [SerializeField] private TileMovement tileMovement;
-        [SerializeField] private float fallDuration = 0.5f;
-        [SerializeField] private float collapseDuration = 0.5f;
+        [SerializeField] private MovementSettings movementSettings;
         public int TileType { get; private set; }
         public ISelectable Selectable { get; set; }
         
@@ -29,12 +28,12 @@ namespace Core
 
         public void Move(Vector3 targetPosition)
         {
-            tileMovement.Fall(targetPosition, fallDuration);
+            tileMovement.Fall(targetPosition, movementSettings.fallDuration);
         }
 
         public void Blast()
         {
-            // tileMovement.BlastMovement(transform.position + Vector3.up, collapseDuration);
+            // tileMovement.BlastMovement(transform.position + Vector3.up, movementSettings.collapseDuration);
             // await Task.Delay((int)(collapseDuration * 1000));
             Destroy(gameObject);
         }

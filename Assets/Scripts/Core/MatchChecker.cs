@@ -46,7 +46,7 @@ namespace Core
                 {
                     if(neighbour.Tile==null)
                         continue;
-                    
+
                     if (visitedTiles.Contains(neighbour))
                         continue;
 

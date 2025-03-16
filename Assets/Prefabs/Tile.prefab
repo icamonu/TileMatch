@@ -180,8 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileSpriteSelector: {fileID: 3011332456416032384}
   tileMovement: {fileID: -194735018017818043}
-  fallDuration: 4
-  collapseDuration: 0.5
+  movementSettings: {fileID: 11400000, guid: 3a8cc630c8e41442eb54a6995539205a, type: 2}
 --- !u!114 &-194735018017818043
 MonoBehaviour:
   m_ObjectHideFlags: 0
