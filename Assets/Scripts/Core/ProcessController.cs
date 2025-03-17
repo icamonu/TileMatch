@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Data;
 using Core.Interfaces;
-using UnityEngine;
 
 namespace Core
 {
@@ -11,27 +10,25 @@ namespace Core
         private BoardData boardData;
         private MatchChecker matchChecker;
         private ColumnSorter columnSorter;
-        private RandomLevelLoader randomLevelLoader;
         private BoardRefiller boardRefiller;
         private BoardShuffler boardShuffler;
         private float fallDuration;
 
         public ProcessController(BoardData boardData, MatchChecker matchChecker, 
-            ColumnSorter columnSorter, RandomLevelLoader randomLevelLoader, MovementSettings movementSettings)
+            ColumnSorter columnSorter, MovementSettings movementSettings,
+            BoardShuffler boardShuffler, BoardRefiller boardRefiller)
         {
             this.boardData = boardData;
             this.matchChecker = matchChecker;
             this.columnSorter = columnSorter;
-            this.randomLevelLoader = randomLevelLoader;
+            this.boardShuffler = boardShuffler;
+            this.boardRefiller = boardRefiller;
             this.fallDuration = movementSettings.fallDuration;
-
+            
             foreach (var cell in this.boardData.Board)
             {
                 cell.OnTileSelected += OnTileSelected;
             }
-
-            boardRefiller = new BoardRefiller(randomLevelLoader);
-            boardShuffler= new BoardShuffler(boardData);
         }
         
         ~ProcessController()

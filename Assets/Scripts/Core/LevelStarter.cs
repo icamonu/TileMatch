@@ -11,35 +11,34 @@ namespace Core
         [SerializeField] private RegularTile tilePrefab;
         [SerializeField] private ObstacleTile obstacleTilePrefab;
         
+        public BoardData BoardData { get; private set; }
+        
         private void Awake()
         {
-            Application.targetFrameRate = 120;
             Init();
         }
 
-        private BoardData boardData;
         private void Init()
         {
-            boardData = new BoardData(gameSettings.rows, gameSettings.columns);
-            boardData.SetBoard();
+            BoardData = new BoardData(gameSettings.rows, gameSettings.columns);
+            BoardData.SetBoard();
             
-            RandomLevelLoader randomLevelLoader = new RandomLevelLoader(boardData, tilePrefab, obstacleTilePrefab,
+            RandomLevelLoader randomLevelLoader = new RandomLevelLoader(BoardData, tilePrefab, obstacleTilePrefab,
                 gameSettings);
             randomLevelLoader.PopulateTheBoard();
             
-            MatchChecker matchChecker = new MatchChecker(boardData);
+            MatchChecker matchChecker = new MatchChecker(BoardData);
             matchChecker.CheckTheBoard();
             
-            ColumnSorter columnSorter = new ColumnSorter(boardData);
-            ProcessController processController = new ProcessController(boardData, matchChecker, 
-                columnSorter, randomLevelLoader, movementSettings);
-            
-        }
+            BoardShuffler boardShuffler = new BoardShuffler(BoardData);
 
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.Space))
-                new BoardShuffler(boardData).Shuffle();
+            if (matchChecker.Deadlock)
+                boardShuffler.Shuffle();
+            
+            ColumnSorter columnSorter = new ColumnSorter(BoardData);
+            BoardRefiller boardRefiller = new BoardRefiller(randomLevelLoader);
+            ProcessController processController = new ProcessController(BoardData, matchChecker, 
+                columnSorter, movementSettings, boardShuffler, boardRefiller);
         }
     }
 }
