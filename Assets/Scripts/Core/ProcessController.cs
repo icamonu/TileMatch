@@ -10,18 +10,18 @@ namespace Core
         private BoardData boardData;
         private MatchChecker matchChecker;
         private ColumnSorter columnSorter;
-        private TilePool tilePool;
+        private RandomLevelLoader _randomLevelLoader;
         private BoardRefiller boardRefiller;
         private float fallDuration;
         private BoardShuffler boardShuffler;
 
         public ProcessController(BoardData boardData, MatchChecker matchChecker, 
-            ColumnSorter columnSorter, TilePool tilePool, MovementSettings movementSettings)
+            ColumnSorter columnSorter, RandomLevelLoader randomLevelLoader, MovementSettings movementSettings)
         {
             this.boardData = boardData;
             this.matchChecker = matchChecker;
             this.columnSorter = columnSorter;
-            this.tilePool = tilePool;
+            this._randomLevelLoader = randomLevelLoader;
             this.fallDuration = movementSettings.fallDuration;
 
             foreach (var cell in this.boardData.Board)
@@ -29,7 +29,7 @@ namespace Core
                 cell.OnTileSelected += OnTileSelected;
             }
 
-            boardRefiller = new BoardRefiller(tilePool);
+            boardRefiller = new BoardRefiller(randomLevelLoader);
             boardShuffler= new BoardShuffler(boardData);
         }
         

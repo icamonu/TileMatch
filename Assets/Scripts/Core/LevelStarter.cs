@@ -9,7 +9,7 @@ namespace Core
     {
         [SerializeField] private GameSettings gameSettings;
         [SerializeField] private MovementSettings movementSettings;
-        [SerializeField] private GameObject tilePrefab;
+        [SerializeField] private RegularTile tilePrefab;
         [SerializeField] private GameObject obtacleTilePrefab;
         
         private void Awake()
@@ -24,16 +24,16 @@ namespace Core
             boardData = new BoardData(gameSettings.rows, gameSettings.columns);
             boardData.SetBoard();
             
-            TilePool tilePool = new TilePool(boardData, tilePrefab, obtacleTilePrefab,
+            RandomLevelLoader randomLevelLoader = new RandomLevelLoader(boardData, tilePrefab, obtacleTilePrefab,
                 gameSettings);
-            tilePool.PopulateTheBoard();
+            randomLevelLoader.PopulateTheBoard();
             
             MatchChecker matchChecker = new MatchChecker(boardData);
             matchChecker.CheckTheBoard();
             
             ColumnSorter columnSorter = new ColumnSorter(boardData);
             ProcessController processController = new ProcessController(boardData, matchChecker, 
-                columnSorter, tilePool, movementSettings);
+                columnSorter, randomLevelLoader, movementSettings);
             
         }
 

@@ -12,9 +12,6 @@ namespace ScriptableObjects
         
         [Header("Regular Tiles(Scriptable Objects)")]
         public List<TileSO> regularTiles;
-        
-        [Header("Obstacle Tiles(Scriptable Objects)")]
-        public List<TileSO> obstacleTiles;
 
         [Header("Match Conditions")] 
         public int matchConditionA;

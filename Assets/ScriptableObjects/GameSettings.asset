@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae42e0c4bde44edb794a7fddfbd2631, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  rows: 10
-  columns: 10
+  rows: 3
+  columns: 3
   regularTiles:
   - {fileID: 11400000, guid: 8e949dcf8512644f0b8bb1c8bc44aed0, type: 2}
   - {fileID: 11400000, guid: 85080ec235c2e41b9a51896c2deaf6a3, type: 2}
   - {fileID: 11400000, guid: 9ed50d9d6f5a045a08d2b00a304b97db, type: 2}
+  - {fileID: 11400000, guid: 2e8499c368c224b13bdf49a048fe3256, type: 2}
+  - {fileID: 11400000, guid: 14c266d81e638416a9304a6f78f5fcad, type: 2}
+  - {fileID: 11400000, guid: 9ee98f69efca4481aaae418806ca2842, type: 2}
   obstacleTiles: []
   matchConditionA: 4
   matchConditionB: 7

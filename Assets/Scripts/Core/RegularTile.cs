@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Core.Interfaces;
 using ScriptableObjects;
 using UnityEngine;
+using Pooling;
 
 namespace Core
 {
@@ -49,7 +50,7 @@ namespace Core
         {
             tileMovement.BlastMovement(movementSettings.collapseDuration);
             await Task.Delay((int)(movementSettings.collapseDuration * 1000));
-            Destroy(gameObject);
+            ObjectPool<RegularTile>.Release(this);
         }
 
         protected override void SetSpriteConditions()

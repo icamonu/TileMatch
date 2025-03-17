@@ -5,60 +5,81 @@ namespace Core
 {
     public class BoardShuffler
     {
+        int maxPossibleTileInCluster = 10;
         private BoardData boardData;
-        private Dictionary<int, List<Cell>> tileTypes= new Dictionary<int, List<Cell>>();
+        private Dictionary<int, LinkedList<Cell>> tileTypes= new Dictionary<int, LinkedList<Cell>>();
         private HashSet<Cell> swappedCells = new HashSet<Cell>();
-        private Dictionary<int, Cell> randomCells= new Dictionary<int, Cell>();
         
         public BoardShuffler(BoardData boardData)
         {
             this.boardData = boardData;
         }
-        
+
         public void Shuffle()
         {
-            int maxPossibleTileInCluster = 10;
             swappedCells.Clear();
-            
-            // for (int i = 0; i < boardData.Board.Length; i++)
-            // {
-            //     randomCells.Add(i, boardData.Board[i]);
-            // }
-            
-            foreach (var cell in boardData.Board)
+            GetAllTileTypes();
+            foreach (int tileType in tileTypes.Keys)
             {
-                if (cell.Tile is ObstacleTile)
+                if(tileTypes[tileType].Count<2)
                     continue;
                 
-                int tileType = ((RegularTile)cell.Tile).TileType;
-                if (!tileTypes.ContainsKey(tileType))
-                {
-                    tileTypes.Add(tileType, new List<Cell>());
-                }
-                
-                tileTypes[tileType].Add(cell);
+                BuildCluster(tileType);
             }
+        }
 
-            for (int i = 0; i < 5; i++)
+        private void BuildCluster(int tileType)
+        {
+            int blockClusterCounter = 0;
+            
+            Cell currentCell = tileTypes[tileType].First.Value;
+            swappedCells.Add(currentCell);
+            tileTypes[tileType].RemoveFirst();
+
+            int neighborIndex = 0;
+            
+            while (blockClusterCounter<maxPossibleTileInCluster)
             {
-                int blockClusterCounter = 0;
-                
-                Cell randomCell;
+                if(tileTypes[tileType].Count == 0) break;
+
+                Cell swapCell = tileTypes[tileType].First.Value;
+                tileTypes[tileType].RemoveFirst();
                 do
                 {
-                    randomCell= boardData.Board[UnityEngine.Random.Range(0, boardData.Board.Length)];
-                }while (randomCell.Tile is ObstacleTile);
+                    neighborIndex++;
+                } while (currentCell.Neighbours[neighborIndex%currentCell.Neighbours.Count].Tile is ObstacleTile);
                 
-                int tileType = ((RegularTile)randomCell.Tile).TileType;
+                if(swappedCells.Contains(currentCell.Neighbours[neighborIndex%currentCell.Neighbours.Count]))
+                    continue;
+                
+                Cell randomNeighbor = currentCell.Neighbours[neighborIndex%currentCell.Neighbours.Count];
+                SwapTiles(randomNeighbor, swapCell);
+                currentCell = currentCell.Neighbours[neighborIndex%currentCell.Neighbours.Count];
+                neighborIndex++;
+                blockClusterCounter++;
+            }
+        }
 
-                while (blockClusterCounter<maxPossibleTileInCluster)
-                {
-                    Cell swapCell=tileTypes[tileType][UnityEngine.Random.Range(0, tileTypes[tileType].Count)];
-                    Cell randomNeighbor = randomCell.Neighbours[UnityEngine.Random.Range(0, randomCell.Neighbours.Count)];
+        private void GetAllTileTypes()
+        {
+            tileTypes.Clear();
+            for (int i = 0; i < boardData.Board.Length; i++)
+            {
+                if (boardData.Board[i].Tile is ObstacleTile)
+                    continue;
                 
-                    SwapTiles(randomNeighbor, swapCell);
-                    blockClusterCounter++;
+                int tileType = ((RegularTile)boardData.Board[i].Tile).TileType;
+                if (!tileTypes.ContainsKey(tileType))
+                {
+                    tileTypes.Add(tileType, new LinkedList<Cell>());
                 }
+                
+                bool addFirst = UnityEngine.Random.Range(0, 2) == 0;
+
+                if (addFirst)
+                    tileTypes[tileType].AddFirst(boardData.Board[i]);
+                else
+                    tileTypes[tileType].AddLast(boardData.Board[i]);
             }
         }
         
@@ -66,12 +87,21 @@ namespace Core
         {
             if(cell1.Tile is ObstacleTile || cell2.Tile is ObstacleTile)
                 return;
-            
+
             if (swappedCells.Contains(cell1) || swappedCells.Contains(cell2))
+            {
+                swappedCells.Add(cell1);
+                swappedCells.Add(cell2);
                 return;
+            }
+                 
             
             Tile tile1 = cell1.Tile;
             Tile tile2 = cell2.Tile;
+            
+            if(((RegularTile)tile1).TileType == ((RegularTile)tile2).TileType)
+                return;
+            
             cell1.SetTile(tile2);
             cell2.SetTile(tile1);
             ((RegularTile)(cell1.Tile)).SetSelectable(cell1);
