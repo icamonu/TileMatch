@@ -88,7 +88,9 @@ namespace Core
                 
                 foreach (Cell cell in currentMatches)
                 {
-                    ((IMatchable)(cell.Tile)).OnMatch(currentMatches.Count);
+                    if (cell.Tile is IMatchable matchableTile)
+                        matchableTile.OnMatch(currentMatches.Count);
+                    
                 }
                 determinedMatches.UnionWith(currentMatches);
             }

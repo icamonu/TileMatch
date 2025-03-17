@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Interfaces;
 using UnityEngine;
 
 namespace Core
@@ -17,7 +18,10 @@ namespace Core
             for (int i = 0; i < emptyCells.Count; i++)
             {
                 Tile randomTile = randomLevelLoader.GetRandomRegularTile();
-                ((RegularTile)randomTile).SetSelectable(emptyCells[i]);
+                
+                if(randomTile is IMovable movableTile)
+                    movableTile.SetSelectable(emptyCells[i]);
+                
                 randomTile.transform.position = new Vector3(emptyCells[i].GridPosition.x, 20f, 0f);
                 emptyCells[i].SetTile(randomTile);
             }

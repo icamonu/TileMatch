@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Core.Data;
+using Core.Interfaces;
 
 namespace Core
 {
@@ -91,6 +92,9 @@ namespace Core
         {
             if(cell1.Tile is ObstacleTile || cell2.Tile is ObstacleTile)
                 return;
+            
+            if(cell1.Tile==null || cell2.Tile==null)
+                return;
 
             if (swappedCells.Contains(cell1) || swappedCells.Contains(cell2))
             {
@@ -98,7 +102,6 @@ namespace Core
                 swappedCells.Add(cell2);
                 return;
             }
-                 
             
             Tile tile1 = cell1.Tile;
             Tile tile2 = cell2.Tile;
@@ -108,11 +111,19 @@ namespace Core
             
             cell1.SetTile(tile2);
             cell2.SetTile(tile1);
-            ((RegularTile)(cell1.Tile)).SetSelectable(cell1);
-            ((RegularTile)(cell2.Tile)).SetSelectable(cell2);
-            
-            ((RegularTile)(cell1.Tile)).Move(cell1.GridPosition);
-            ((RegularTile)(cell2.Tile)).Move(cell2.GridPosition);
+
+            if (cell1.Tile is IMovable movableTile1)
+            {
+                movableTile1.SetSelectable(cell1);
+                movableTile1.Move(cell1.GridPosition);
+            }
+
+
+            if (cell2.Tile is IMovable movableTile2)
+            {
+                movableTile2.SetSelectable(cell2);
+                movableTile2.Move(cell2.GridPosition);
+            }
             
             swappedCells.Add(cell1);
             swappedCells.Add(cell2);

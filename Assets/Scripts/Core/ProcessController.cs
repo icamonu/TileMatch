@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Data;
+using Core.Interfaces;
 using UnityEngine;
 
 namespace Core
@@ -10,10 +11,10 @@ namespace Core
         private BoardData boardData;
         private MatchChecker matchChecker;
         private ColumnSorter columnSorter;
-        private RandomLevelLoader _randomLevelLoader;
+        private RandomLevelLoader randomLevelLoader;
         private BoardRefiller boardRefiller;
-        private float fallDuration;
         private BoardShuffler boardShuffler;
+        private float fallDuration;
 
         public ProcessController(BoardData boardData, MatchChecker matchChecker, 
             ColumnSorter columnSorter, RandomLevelLoader randomLevelLoader, MovementSettings movementSettings)
@@ -21,7 +22,7 @@ namespace Core
             this.boardData = boardData;
             this.matchChecker = matchChecker;
             this.columnSorter = columnSorter;
-            this._randomLevelLoader = randomLevelLoader;
+            this.randomLevelLoader = randomLevelLoader;
             this.fallDuration = movementSettings.fallDuration;
 
             foreach (var cell in this.boardData.Board)
@@ -60,9 +61,8 @@ namespace Core
             List<Cell> modifiedCells = columnSorter.GetModifiedCells();
             foreach (var modifiedCell in modifiedCells)
             {
-                Vector3 cellPosition = new Vector3(modifiedCell.GridPosition.x,
-                    modifiedCell.GridPosition.y, 0);
-                ((RegularTile)modifiedCell.Tile).Move(cellPosition);
+                if(modifiedCell.Tile is IMovable movableTile)
+                    movableTile.Move(modifiedCell.GridPosition);
             }
             
             await Task.Delay((int)(fallDuration * 800));

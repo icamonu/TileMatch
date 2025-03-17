@@ -23,27 +23,21 @@ namespace Core
             OnMatch(1);
         }
         
-        public void SetSelectable(ISelectable selectable)
-        {
-            Selectable = selectable;
-        }
-        
         public void OnMatch(int matchCount)
         {
             tileSpriteSelector.SetSprite(matchCount);
         }
 
-        public void Move(Vector3 targetPosition)
-        {
-            tileMovement.Fall(targetPosition, movementSettings.fallDuration);
-            tileSpriteSelector.SetSortingOrder((int)targetPosition.y);
-        }
-        
         public void Move(Vector2Int targetPosition)
         {
             Vector3 targetPos = new Vector3(targetPosition.x, targetPosition.y,0f);
             tileMovement.Fall(targetPos, movementSettings.fallDuration);
             tileSpriteSelector.SetSortingOrder(targetPosition.y);
+        }
+        
+        public void SetSelectable(Cell cell)
+        {
+            Selectable=cell;
         }
 
         public async void Blast()

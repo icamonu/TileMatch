@@ -1,4 +1,5 @@
 using Core.Data;
+using Core.Interfaces;
 using ScriptableObjects;
 using UnityEngine;
 using Pooling;
@@ -49,7 +50,9 @@ namespace Core
                 int randomTileType = Random.Range(0, gameSettings.regularTiles.Count);
                 tile.SetTileSO(gameSettings.regularTiles[randomTileType], randomTileType);
                 boardData.Board[i].SetTile(tile);
-                ((RegularTile)boardData.Board[i].Tile).SetSelectable(boardData.Board[i]);
+                
+                if (tile is IMovable movableTile)
+                    movableTile.SetSelectable(boardData.Board[i]);
             }
         }
 

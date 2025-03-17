@@ -4,6 +4,7 @@ namespace Core.Interfaces
 {
     public interface IMovable
     {
-        void Move(Vector3 targetPosition);
+        void Move(Vector2Int targetPosition);
+        void SetSelectable(Cell cell);
     }
 }

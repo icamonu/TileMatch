@@ -68,7 +68,10 @@ namespace Core
                     if (nextCell.Tile is IMovable)
                     {
                         currentCell.SetTile(nextCell.Tile);
-                        ((RegularTile)(currentCell.Tile)).SetSelectable(currentCell);
+                        
+                        if (nextCell.Tile is IMovable movableTile)
+                            movableTile.SetSelectable(currentCell);
+                        
                         modifiedCells.Add(currentCell);
                         nextCell.SetTile(null);
                         currentCell = currentCell.TopCell;
