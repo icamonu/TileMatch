@@ -43,6 +43,7 @@ namespace Core.Data
         
         public HashSet<Cell> GetDamagedBlastTiles(HashSet<Cell> blastMatches)
         {
+            HashSet<Tile> getDamagedTiles = new HashSet<Tile>();
             HashSet<Cell> damagedBlastTiles = new HashSet<Cell>();
             foreach (var blastMatch in blastMatches)
             {
@@ -52,7 +53,11 @@ namespace Core.Data
                     if (neighbour.Tile is not ObstacleTile tile)
                         continue;
 
+                    if (getDamagedTiles.Contains(tile))
+                        break;
+                    
                     tile.GetDamage();
+                    getDamagedTiles.Add(tile);
                     
                     if (tile.Health == 0)
                     {

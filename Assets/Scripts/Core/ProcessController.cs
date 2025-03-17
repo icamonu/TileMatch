@@ -70,10 +70,9 @@ namespace Core
 
             if (isDeadLock)
             {
-                Debug.Log("Deadlock");
                 boardShuffler.Shuffle();
+                matchChecker.CheckTheBoard();
             }
-                
         }
     }
 }

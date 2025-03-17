@@ -47,14 +47,15 @@ namespace Core
                 do
                 {
                     neighborIndex++;
-                } while (currentCell.Neighbours[neighborIndex%currentCell.Neighbours.Count].Tile is ObstacleTile);
+                    neighborIndex %= currentCell.Neighbours.Count;
+                } while (currentCell.Neighbours[neighborIndex].Tile is ObstacleTile);
                 
-                if(swappedCells.Contains(currentCell.Neighbours[neighborIndex%currentCell.Neighbours.Count]))
+                if(swappedCells.Contains(currentCell.Neighbours[neighborIndex]))
                     continue;
                 
-                Cell randomNeighbor = currentCell.Neighbours[neighborIndex%currentCell.Neighbours.Count];
+                Cell randomNeighbor = currentCell.Neighbours[neighborIndex];
                 SwapTiles(randomNeighbor, swapCell);
-                currentCell = currentCell.Neighbours[neighborIndex%currentCell.Neighbours.Count];
+                currentCell = currentCell.Neighbours[neighborIndex];
                 neighborIndex++;
                 blockClusterCounter++;
             }
@@ -66,6 +67,9 @@ namespace Core
             for (int i = 0; i < boardData.Board.Length; i++)
             {
                 if (boardData.Board[i].Tile is ObstacleTile)
+                    continue;
+                
+                if (boardData.Board[i].Tile==null)
                     continue;
                 
                 int tileType = ((RegularTile)boardData.Board[i].Tile).TileType;

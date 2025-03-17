@@ -1,4 +1,3 @@
-using System;
 using Core.Data;
 using ScriptableObjects;
 using UnityEngine;
@@ -10,7 +9,7 @@ namespace Core
         [SerializeField] private GameSettings gameSettings;
         [SerializeField] private MovementSettings movementSettings;
         [SerializeField] private RegularTile tilePrefab;
-        [SerializeField] private GameObject obtacleTilePrefab;
+        [SerializeField] private ObstacleTile obstacleTilePrefab;
         
         private void Awake()
         {
@@ -24,7 +23,7 @@ namespace Core
             boardData = new BoardData(gameSettings.rows, gameSettings.columns);
             boardData.SetBoard();
             
-            RandomLevelLoader randomLevelLoader = new RandomLevelLoader(boardData, tilePrefab, obtacleTilePrefab,
+            RandomLevelLoader randomLevelLoader = new RandomLevelLoader(boardData, tilePrefab, obstacleTilePrefab,
                 gameSettings);
             randomLevelLoader.PopulateTheBoard();
             

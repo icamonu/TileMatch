@@ -297,7 +297,7 @@ MonoBehaviour:
   gameSettings: {fileID: 11400000, guid: b240c2cc499c34b99aa7fe4cb81d8ff1, type: 2}
   movementSettings: {fileID: 11400000, guid: 3a8cc630c8e41442eb54a6995539205a, type: 2}
   tilePrefab: {fileID: -381922786088748127, guid: dd604a34805824b57859bfb0d9b0e6e0, type: 3}
-  obtacleTilePrefab: {fileID: 1929710332382770400, guid: 4a07b7a6fa5604991a13dbf3592491bf, type: 3}
+  obstacleTilePrefab: {fileID: 6890958172982698919, guid: 4a07b7a6fa5604991a13dbf3592491bf, type: 3}
 --- !u!4 &1321712216
 Transform:
   m_ObjectHideFlags: 0

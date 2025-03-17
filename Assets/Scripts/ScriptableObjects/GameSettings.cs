@@ -17,5 +17,8 @@ namespace ScriptableObjects
         public int matchConditionA;
         public int matchConditionB;
         public int matchConditionC;
+        
+        [Header("Obstacle Tiles Rate On Random Board Generation")]
+        public float obstacleTileRate;
     }
 }

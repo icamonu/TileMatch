@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Pooling;
 
 namespace Core
 {
@@ -8,7 +9,7 @@ namespace Core
         
         public void Blast()
         {
-            Destroy(gameObject);
+            ObjectPool<ObstacleTile>.Release(this);
         }
 
         public void GetDamage()
